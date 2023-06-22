@@ -11,6 +11,7 @@ import com.github.mikephil.charting.utils.MPPointD;
 import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import android.util.Log;
 
 /**
  * Baseclass of all axis renderers.
@@ -186,8 +187,11 @@ public abstract class AxisRenderer extends Renderer {
 
         // force label count
         if (mAxis.isForceLabelsEnabled()) {
-
+            Log.e("AxisRenderer", "forece enabled");
             interval = (float) range / (float) (labelCount - 1);
+            if (mAxis.isGranularityEnabled())
+                interval = interval < mAxis.getGranularity() ? mAxis.getGranularity() : interval;
+
             mAxis.mEntryCount = labelCount;
 
             if (mAxis.mEntries.length < labelCount) {
@@ -196,6 +200,21 @@ public abstract class AxisRenderer extends Renderer {
             }
 
             float v = min;
+
+            float remainder = v % mAxis.getGranularity();
+            if (remainder > (mAxis.getGranularity()/2)){
+                v += (mAxis.getGranularity() - remainder);
+            }
+            else{
+                v -= remainder;
+            }
+            float remainderInterval = (float) (interval % mAxis.getGranularity());
+            if (remainderInterval > (mAxis.getGranularity()/2)){
+                interval += (mAxis.getGranularity() - remainderInterval);
+            }
+            else{
+                interval -= remainderInterval;
+            }
 
             for (int i = 0; i < labelCount; i++) {
                 mAxis.mEntries[i] = v;
