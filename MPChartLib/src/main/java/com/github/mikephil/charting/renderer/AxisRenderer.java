@@ -42,7 +42,7 @@ public abstract class AxisRenderer extends Renderer {
     protected Paint mAxisLinePaint;
 
     /**
-     * paint used for the limit lines
+     * paint used for the limit lines check
      */
     protected Paint mLimitLinePaint;
 
