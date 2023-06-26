@@ -187,7 +187,7 @@ public abstract class AxisRenderer extends Renderer {
 
         // force label count
         if (mAxis.isForceLabelsEnabled()) {
-            Log.e("AxisRenderer", "force enabled 12:04 AM");
+            Log.d("AxisRenderer", "Force label enabled");
             interval = (float) range / (float) (labelCount - 1);
             if (mAxis.isGranularityEnabled())
                 interval = interval < mAxis.getGranularity() ? mAxis.getGranularity() : interval;
